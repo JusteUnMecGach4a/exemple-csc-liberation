@@ -313,11 +313,22 @@ footer {
     transform: translateY(0);
 }
 
+.data-impact {
+    padding: 6rem 0;
+}
+
+canvas {
+    max-width: 100%;
+    margin-top: 1rem;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     h1 { font-size: 2.5rem; }
     .hero { text-align: center; }
     .hero-content { margin: 0 auto; }
     .nav-links { display: none; }
-    .grid { grid-template-columns: 1fr !important; }
+    .grid {
+        grid-template-columns: 1fr;
+    }
 }

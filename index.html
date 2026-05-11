@@ -6,6 +6,10 @@
     <title>CSC La Libération | Bar-le-Duc - Accueil</title>
     <meta name="description" content="Bienvenue sur le portail du Centre Socioculturel de la Libération à Bar-le-Duc. Histoire, solidarité et engagement au cœur du quartier.">
     <link rel="stylesheet" href="style.css">
+    <!-- Chart.js for premium data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- GSAP for smooth animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
 <body>
 
@@ -28,7 +32,7 @@
             <div class="container">
                 <div class="hero-content reveal">
                     <h1 class="text-gradient">Résilience & Solidarité Barrois.</h1>
-                    <p>Le CSC La Libération est le pilier historique de l'animation sociale à Bar-le-Duc depuis 1964. Un acteur engagé au cœur du quartier, au service des Barisiens.</p>
+                    <p>Le CSC La Libération est le pilier historique de l'animation sociale à Bar-le-Duc depuis 1964. Un acteur engagé au service des Barisiens.</p>
                     <div class="hero-btns">
                         <a href="histoire.html" class="btn btn-primary">Notre Histoire</a>
                         <a href="actions.html" class="btn btn-primary" style="background: var(--secondary);">Nos Actions</a>
@@ -37,50 +41,61 @@
             </div>
         </section>
 
-        <!-- Brief Sections -->
-        <section class="secteurs">
+        <!-- Stats Section with GSAP CountUp -->
+        <section style="background: var(--secondary); color: white; padding: 4rem 0;">
             <div class="container">
-                <div class="grid">
-                    <div class="card reveal">
-                        <h3>Territoire QPV</h3>
-                        <p>Le quartier couvre <strong>29 hectares</strong> avec un taux de pauvreté de <strong>48%</strong>, justifiant un accompagnement renforcé.</p>
-                        <div style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">
-                            <strong>2 274</strong> habitants concernés par nos actions.
-                        </div>
+                <div class="grid" style="text-align: center;">
+                    <div>
+                        <h2 class="stat-number" data-target="2274" style="color: white; margin-bottom: 0.5rem;">0</h2>
+                        <p>Habitants accompagnés</p>
                     </div>
-                    <div class="card reveal">
-                        <h3>Démographie Locale</h3>
-                        <p>Une population diverse : **34%** de familles monoparentales et **44,4%** de seniors (60-74 ans).</p>
-                        <div style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">
-                            Indice de jeunesse : <strong>0.8</strong>
-                        </div>
+                    <div>
+                        <h2 class="stat-number" data-target="29" style="color: white; margin-bottom: 0.5rem;">0</h2>
+                        <p>Collaborateurs permanents</p>
                     </div>
-                    <div class="card reveal">
-                        <h3>Dynamique & Emploi</h3>
-                        <p>Le CSC accompagne la baisse du chômage de **-3,20%** par ses ateliers d'inclusion numérique et de formation.</p>
-                        <div style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">
-                            <strong>60,1%</strong> de ménages d'une personne.
-                        </div>
+                    <div>
+                        <h2 style="color: white; margin-bottom: 0.5rem;">5.7 M€</h2>
+                        <p>Investis pour le quartier</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Stats Banner -->
-        <section style="background: var(--secondary); color: white; padding: 4rem 0;">
+        <!-- Data Visualization Section -->
+        <section class="data-impact">
             <div class="container">
-                <div class="grid" style="text-align: center;">
-                    <div>
-                        <h2 style="color: white; margin-bottom: 0.5rem;">~29</h2>
-                        <p>Collaborateurs engagés</p>
+                <div class="reveal" style="text-align: center; margin-bottom: 3rem;">
+                    <h2>Indicateurs de Proximité (QPV)</h2>
+                    <p>Une analyse précise des besoins pour une action sociale ciblée.</p>
+                </div>
+                <div class="grid">
+                    <div class="card reveal" style="padding: 2rem;">
+                        <h3>Profil du Quartier</h3>
+                        <canvas id="povertyChart"></canvas>
                     </div>
-                    <div>
-                        <h2 style="color: white; margin-bottom: 0.5rem;">1964</h2>
-                        <p>Plus ancien centre de la ville</p>
+                    <div class="card reveal" style="padding: 2rem;">
+                        <h3>Composition Sociale</h3>
+                        <canvas id="demographicChart"></canvas>
                     </div>
-                    <div>
-                        <h2 style="color: white; margin-bottom: 0.5rem;">5,7 M€</h2>
-                        <p>Investis pour le quartier</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Brief Sections -->
+        <section class="secteurs" style="background: var(--bg-alt);">
+            <div class="container">
+                <div class="grid">
+                    <div class="card reveal">
+                        <h3>Territoire QPV</h3>
+                        <p>Le quartier couvre <strong>29 hectares</strong> avec un taux de pauvreté de <strong>48%</strong>, justifiant un accompagnement renforcé.</p>
+                    </div>
+                    <div class="card reveal">
+                        <h3>Démographie</h3>
+                        <p>Une population diverse : <strong>34%</strong> de familles monoparentales et <strong>44,4%</strong> de seniors (60-74 ans).</p>
+                    </div>
+                    <div class="card reveal">
+                        <h3>Dynamique</h3>
+                        <p>Le CSC accompagne la baisse du chômage de <strong>-3,20%</strong> par ses ateliers d'inclusion numérique.</p>
                     </div>
                 </div>
             </div>
@@ -96,5 +111,46 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // Chart.js Implementations
+        const ctxPoverty = document.getElementById('povertyChart').getContext('2d');
+        new Chart(ctxPoverty, {
+            type: 'bar',
+            data: {
+                labels: ['QPV Libération', 'Moyenne Bar-le-Duc'],
+                datasets: [{
+                    label: 'Taux de Pauvreté (%)',
+                    data: [48, 22],
+                    backgroundColor: ['#2563eb', '#cbd5e1'],
+                    borderRadius: 8
+                }]
+            },
+            options: { responsive: true, plugins: { legend: { display: false } } }
+        });
+
+        const ctxDemo = document.getElementById('demographicChart').getContext('2d');
+        new Chart(ctxDemo, {
+            type: 'doughnut',
+            data: {
+                labels: ['Ménages 1 pers.', 'Familles Monoparentales', 'Autres'],
+                datasets: [{
+                    data: [60.1, 34, 5.9],
+                    backgroundColor: ['#1e293b', '#2563eb', '#94a3b8'],
+                    hoverOffset: 4
+                }]
+            },
+            options: { responsive: true }
+        });
+
+        // GSAP CountUp Animation
+        gsap.from(".stat-number", {
+            textContent: 0,
+            duration: 2,
+            ease: "power1.out",
+            snap: { textContent: 1 },
+            stagger: 0.2,
+            scrollTrigger: ".stat-number"
+        });
+    </script>
 </body>
 </html>
