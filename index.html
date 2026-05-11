@@ -32,7 +32,7 @@
             <div class="container">
                 <div class="hero-content reveal">
                     <h1 class="text-gradient">Résilience & Solidarité Barrois.</h1>
-                    <p>Le CSC La Libération est le pilier historique de l'animation sociale à Bar-le-Duc depuis 1964. Un acteur engagé au service des Barisiens.</p>
+                    <p>Le CSC La Libération est le pilier historique de l'animation sociale à Bar-le-Duc depuis 1965. Un acteur engagé pour la <strong>Dignité</strong>, la <strong>Solidarité</strong> et la <strong>Démocratie</strong>.</p>
                     <div class="hero-btns">
                         <a href="histoire.html" class="btn btn-primary">Notre Histoire</a>
                         <a href="actions.html" class="btn btn-primary" style="background: var(--secondary);">Nos Actions</a>
@@ -46,16 +46,16 @@
             <div class="container">
                 <div class="grid" style="text-align: center;">
                     <div>
-                        <h2 class="stat-number" data-target="2274" style="color: white; margin-bottom: 0.5rem;">0</h2>
-                        <p>Habitants accompagnés</p>
+                        <h2 class="stat-number" data-target="1830" style="color: white; margin-bottom: 0.5rem;">0</h2>
+                        <p>Habitants du quartier (INSEE)</p>
                     </div>
                     <div>
-                        <h2 class="stat-number" data-target="29" style="color: white; margin-bottom: 0.5rem;">0</h2>
-                        <p>Collaborateurs permanents</p>
+                        <h2 class="stat-number" data-target="644" style="color: white; margin-bottom: 0.5rem;">0</h2>
+                        <p>Adhérents en 2024</p>
                     </div>
                     <div>
                         <h2 style="color: white; margin-bottom: 0.5rem;">5.7 M€</h2>
-                        <p>Investis pour le quartier</p>
+                        <p>Plan de réhabilitation</p>
                     </div>
                 </div>
             </div>
@@ -65,17 +65,17 @@
         <section class="data-impact">
             <div class="container">
                 <div class="reveal" style="text-align: center; margin-bottom: 3rem;">
-                    <h2>Indicateurs de Proximité (QPV)</h2>
-                    <p>Une analyse précise des besoins pour une action sociale ciblée.</p>
+                    <h2>Indicateurs de Territoire (Diagnostic)</h2>
+                    <p>Une analyse précise de la composition sociale pour le Projet 2026-2029.</p>
                 </div>
                 <div class="grid">
                     <div class="card reveal" style="padding: 2rem;">
-                        <h3>Profil du Quartier</h3>
-                        <canvas id="povertyChart"></canvas>
+                        <h3>Structure des Ménages</h3>
+                        <canvas id="householdChart"></canvas>
                     </div>
                     <div class="card reveal" style="padding: 2rem;">
-                        <h3>Composition Sociale</h3>
-                        <canvas id="demographicChart"></canvas>
+                        <h3>Profil de Quartier (QPV)</h3>
+                        <canvas id="povertyChart"></canvas>
                     </div>
                 </div>
             </div>
@@ -86,16 +86,16 @@
             <div class="container">
                 <div class="grid">
                     <div class="card reveal">
-                        <h3>Territoire QPV</h3>
-                        <p>Le quartier couvre <strong>29 hectares</strong> avec un taux de pauvreté de <strong>48%</strong>, justifiant un accompagnement renforcé.</p>
+                        <h3>Identité & Valeurs</h3>
+                        <p>Ancré dans l'ESS, le centre promeut le pouvoir d'agir et la mixité interculturelle au travers de ses 4 commissions.</p>
                     </div>
                     <div class="card reveal">
                         <h3>Démographie</h3>
-                        <p>Une population diverse : <strong>34%</strong> de familles monoparentales et <strong>44,4%</strong> de seniors (60-74 ans).</p>
+                        <p>Un quartier qui résiste mieux que la ville (**-1.8%** vs **-8.6%**), marqué par une forte proportion de personnes seules (**60.2%**).</p>
                     </div>
                     <div class="card reveal">
-                        <h3>Dynamique</h3>
-                        <p>Le CSC accompagne la baisse du chômage de <strong>-3,20%</strong> par ses ateliers d'inclusion numérique.</p>
+                        <h3>Transformation</h3>
+                        <p>Réhabilitation de **152 logements**. Transition énergétique et modernisation de l'image du quartier Libération.</p>
                     </div>
                 </div>
             </div>
@@ -113,33 +113,33 @@
     <script src="script.js"></script>
     <script>
         // Chart.js Implementations
+        const ctxHousehold = document.getElementById('householdChart').getContext('2d');
+        new Chart(ctxHousehold, {
+            type: 'doughnut',
+            data: {
+                labels: ['Pers. seules', 'Couples s/ enfant', 'Couples c/ enfant', 'Monoparentales'],
+                datasets: [{
+                    data: [54.3, 21.8, 13.7, 8.9],
+                    backgroundColor: ['#1e293b', '#2563eb', '#94a3b8', '#cbd5e1'],
+                    hoverOffset: 4
+                }]
+            },
+            options: { responsive: true }
+        });
+
         const ctxPoverty = document.getElementById('povertyChart').getContext('2d');
         new Chart(ctxPoverty, {
             type: 'bar',
             data: {
-                labels: ['QPV Libération', 'Moyenne Bar-le-Duc'],
+                labels: ['Prestations CAF', 'Pauvreté Ville'],
                 datasets: [{
-                    label: 'Taux de Pauvreté (%)',
-                    data: [48, 22],
+                    label: 'Taux (%)',
+                    data: [52, 21],
                     backgroundColor: ['#2563eb', '#cbd5e1'],
                     borderRadius: 8
                 }]
             },
             options: { responsive: true, plugins: { legend: { display: false } } }
-        });
-
-        const ctxDemo = document.getElementById('demographicChart').getContext('2d');
-        new Chart(ctxDemo, {
-            type: 'doughnut',
-            data: {
-                labels: ['Ménages 1 pers.', 'Familles Monoparentales', 'Autres'],
-                datasets: [{
-                    data: [60.1, 34, 5.9],
-                    backgroundColor: ['#1e293b', '#2563eb', '#94a3b8'],
-                    hoverOffset: 4
-                }]
-            },
-            options: { responsive: true }
         });
 
         // GSAP CountUp Animation
